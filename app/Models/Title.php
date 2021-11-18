@@ -32,6 +32,6 @@ class Title extends Model
      */
     public function employee()
     {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsToMany(Employee::class, 'employee_title_table', 'employee_id', 'title_id');
     }
 }
