@@ -14,7 +14,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        return Employee::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Employee::create($request->all());
     }
 
     /**
@@ -44,9 +44,9 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    public function show($id)
     {
-        //
+        return Employee::findOrFail($id);
     }
 
     /**
@@ -67,9 +67,11 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $employe = Employee::findOrFail($id);
+        $employe->update($request->all());
+        return $employe;
     }
 
     /**
@@ -78,8 +80,10 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        $employe = Employee::findOrFail($id);
+        $employe->delete();
+        return 204;
     }
 }

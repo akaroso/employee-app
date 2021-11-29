@@ -14,7 +14,7 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        //
+        return Salary::all();
     }
 
     /**
@@ -35,18 +35,18 @@ class SalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Salary::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Salary  $salary
+     * @param  int
      * @return \Illuminate\Http\Response
      */
-    public function show(Salary $salary)
+    public function show($id)
     {
-        //
+        return Salary::findOrFail($id);
     }
 
     /**
@@ -67,9 +67,11 @@ class SalaryController extends Controller
      * @param  \App\Models\Salary  $salary
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Salary $salary)
+    public function update(Request $request, $id)
     {
-        //
+        $salary = Salary::findOrFail($id);
+        $salary->update($request->all());
+        return $salary;
     }
 
     /**
@@ -78,8 +80,11 @@ class SalaryController extends Controller
      * @param  \App\Models\Salary  $salary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Salary $salary)
+    public function destroy($id)
     {
-        //
+        $salary = Salary::findOrFail($id);
+        $salary->delete();
+
+        return 204;
     }
 }

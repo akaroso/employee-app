@@ -14,7 +14,7 @@ class TitleController extends Controller
      */
     public function index()
     {
-        //
+        return Title::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class TitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Title::create($request->all());
     }
 
     /**
@@ -44,9 +44,9 @@ class TitleController extends Controller
      * @param  \App\Models\Title  $title
      * @return \Illuminate\Http\Response
      */
-    public function show(Title $title)
+    public function show($id)
     {
-        //
+        return Title::findOrFail($id);
     }
 
     /**
@@ -67,9 +67,11 @@ class TitleController extends Controller
      * @param  \App\Models\Title  $title
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Title $title)
+    public function update(Request $request, $id)
     {
-        //
+        $title = Title::findOrFail($id);
+        $title->update($request->all());
+        return $title;
     }
 
     /**
@@ -78,8 +80,10 @@ class TitleController extends Controller
      * @param  \App\Models\Title  $title
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Title $title)
+    public function destroy($id)
     {
-        //
+        $title = Title::findOrFail($id);
+        $title->delete();
+        return 204;
     }
 }

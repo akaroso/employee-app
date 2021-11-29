@@ -14,7 +14,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return Department::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Department::create($request->all());
     }
 
     /**
@@ -44,9 +44,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($id)
     {
-        //
+        return Department::findOrFail($id);
     }
 
     /**
@@ -67,9 +67,11 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, $id)
     {
-        //
+        $department = Department::findOrFail($id);
+        $department->update($request->all());
+        return $department;
     }
 
     /**
@@ -78,8 +80,10 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy($id)
     {
-        //
+        $department = Department::findOrFail($id);
+        $department->delete();
+        return 204;
     }
 }

@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TitleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-
-Route::resource('Employee', EmployeeController::class);
-Route::resource('Department', DepartmentController::class);
-Route::resource('Salary', SalaryController::class);
-Route::resource('Title', UserController::class);
 });
+
+Route::apiResource('employee', EmployeeController::class);
+Route::apiResource('department', DepartmentController::class);
+Route::apiResource('salary', SalaryController::class);
+Route::apiResource('title', TitleController::class);
