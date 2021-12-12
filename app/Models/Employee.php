@@ -16,6 +16,7 @@ class Employee extends Model
         'gender',
         'birth_date',
         'hire_date',
+        'salary'
     ];
 
     /**

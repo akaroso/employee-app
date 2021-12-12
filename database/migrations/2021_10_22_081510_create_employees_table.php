@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->bigInteger('phone');
             $table->enum('gender',['M','F']);
             $table->date('hire_date');
+            $table->bigInteger('salary');
         });
     }
 
