@@ -22,8 +22,8 @@ class EmployeeFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->name(),
-            'last_name' => $this->faker->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'hire_date' => now(),
             'phone' => $this->faker->e164PhoneNumber(),
             'gender' => $this->faker->randomElement(['M','F'])

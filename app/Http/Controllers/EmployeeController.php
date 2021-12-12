@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -85,5 +86,21 @@ class EmployeeController extends Controller
         $employe = Employee::findOrFail($id);
         $employe->delete();
         return 204;
+    }
+
+    /**
+     * Filter and find specificc employee
+     *
+     * @param string
+     * @return \Illuminate\Http\Response
+     */
+    public function filter($query)
+    {
+        $employe = DB::table('employees')
+        ->orWhere('name','LIKE' , '%'.$query.'%')
+        ->orWhere('email','LIKE', '%'.$query.'%')
+        ->orWhere('phone','LIKE', '%'.$query.'%')
+        ->get();
+        return $employe;
     }
 }

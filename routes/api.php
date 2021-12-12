@@ -26,3 +26,4 @@ Route::apiResource('employee', EmployeeController::class);
 Route::apiResource('department', DepartmentController::class);
 Route::apiResource('salary', SalaryController::class);
 Route::apiResource('title', TitleController::class);
+Route::get('/employee/filter/{query}', [EmployeeController::class, 'filter']);
