@@ -36,7 +36,10 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        return Employee::create($request->all());
+        $validated = $request->validate([
+            'name' => 'required|max:100'
+        ]);
+        return Employee::create($validated);
     }
 
     /**
