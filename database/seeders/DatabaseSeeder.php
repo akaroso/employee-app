@@ -19,14 +19,6 @@ class DatabaseSeeder extends Seeder
     {
          \App\Models\User::factory(10)->create();
 
-         for ($i=0; $i < 3; $i++) {
-            $department = Department::factory()->create();
-            $title = Title::factory()
-                        ->count(3)
-                        ->for($department)
-                        ->create();
-         }
-
          for ($i=0; $i < 30; $i++) {
             $emploee = Employee::factory()->has(Title::factory()->count(2))->create();
             $salary = Salary::factory()
