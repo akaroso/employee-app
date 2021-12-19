@@ -37,9 +37,12 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
+            'email' => 'required|email',
+            'phone' => 'required|max:11|min:11',
+            'salary' => 'required|max:100000000',
         ]);
-        return Employee::create($validated);
+        return Employee::create($request->all());
     }
 
     /**
@@ -88,7 +91,7 @@ class EmployeeController extends Controller
     {
         $employe = Employee::findOrFail($id);
         $employe->delete();
-        return 204;
+        return 200;
     }
 
     /**
