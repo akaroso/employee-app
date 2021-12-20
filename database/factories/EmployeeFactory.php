@@ -27,7 +27,7 @@ class EmployeeFactory extends Factory
             'hire_date' => $this->faker->date(),
             'phone' => $this->faker->e164PhoneNumber(),
             'gender' => $this->faker->randomElement(['M','F']),
-            'salary' => $this->faker->numberBetween(20000,2000000),
+            'salary' => $this->faker->randomFloat(2, 0, 100000)
         ];
     }
 }

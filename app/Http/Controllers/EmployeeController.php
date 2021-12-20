@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Exception\NotFoundException;
 
 class EmployeeController extends Controller
 {
@@ -40,9 +41,11 @@ class EmployeeController extends Controller
             'name' => 'required|max:100',
             'email' => 'required|email',
             'phone' => 'required|max:11|min:11',
-            'salary' => 'required|max:100000000',
+            'salary' => 'required|numeric|min:3200|max:1000000',
+            'gender' => 'required',
+            'hire_date' => 'required'
         ]);
-        return Employee::create($request->all());
+        return Employee::create($validated);
     }
 
     /**
@@ -53,7 +56,17 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return Employee::findOrFail($id);
+        try {
+
+            $user = Employee::findOrFail($id);
+            return $user;
+          
+          } catch (\Exception $e) {
+          
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 404);
+          }
     }
 
     /**
@@ -76,8 +89,23 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $employe = Employee::findOrFail($id);
-        $employe->update($request->all());
+        try {
+
+            $employe = Employee::findOrFail($id);
+          
+          } catch (\Exception $e) {
+          
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 404);
+          }
+          $validated = $request->validate([
+            'name' => 'max:100',
+            'email' => 'email',
+            'phone' => 'max:11|min:11',
+            'salary' => 'numeric|min:3200|max:1000000',
+        ]);
+        $employe->update($validated);
         return $employe;
     }
 
@@ -89,7 +117,16 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employe = Employee::findOrFail($id);
+        try {
+
+            $employe = Employee::findOrFail($id);
+          
+          } catch (\Exception $e) {
+          
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 404);
+          }
         $employe->delete();
         return 200;
     }
